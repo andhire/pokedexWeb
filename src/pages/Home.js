@@ -1,6 +1,7 @@
 import React from "react";
 import PokemonList from "../components/PokemonList";
 import Navbara from "../components/Navbar";
+import { throwStatement } from "@babel/types";
 
 class Home extends React.Component {
     state = {
@@ -9,7 +10,8 @@ class Home extends React.Component {
         data: {
             results: []
         },
-        pokemonData: []
+        pokemonData: [],
+        length: 0
     };
     componentDidMount() {
         this.fetchPokemons();
@@ -19,10 +21,14 @@ class Home extends React.Component {
         this.setState({ loading: true, error: null });
         try {
             const response = await fetch(
-                "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
+                "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=21"
             );
             const data = await response.json();
-            this.setState({ data: data, loading: false });
+            this.setState({
+                data: data,
+                loading: false,
+                length: data.results.length
+            });
 
             for (let i = 0; i < this.state.data.results.length; i++) {
                 const pokemonResponse = await fetch(
@@ -41,7 +47,10 @@ class Home extends React.Component {
         return (
             <React.Fragment>
                 <Navbara />
-                <PokemonList state={this.state} />
+                <PokemonList
+                    state={this.state}
+                    pokemonLenght={this.state.length}
+                />
             </React.Fragment>
         );
     }

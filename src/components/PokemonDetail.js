@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardGroup, CardDeck, CardColumns } from "react-bootstrap";
 
 import "./styles/card.css";
-class PokemonList extends React.Component {
+class PokemonDetail extends React.Component {
     capitalize(name) {
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
@@ -29,22 +29,6 @@ class PokemonList extends React.Component {
             </React.Fragment>
         );
     }
-    contains(index) {
-        if (this.props.state.pokemonData.length == this.props.pokemonLenght) {
-            return (
-                <img
-                    height="60"
-                    width="60"
-                    src={
-                        this.props.state.pokemonData[index].sprites
-                            .front_default
-                    }
-                />
-            );
-        } else {
-            return "";
-        }
-    }
 }
 
-export default PokemonList;
+export default PokemonDetail;

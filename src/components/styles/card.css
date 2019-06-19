@@ -1,0 +1,23 @@
+.card {
+    margin: 1%;
+    margin-left: 1.5%;
+    width: 430px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.Card-Title {
+    margin-top: 15px;
+}
+
+.display {
+    margin: 1%;
+    display: flex;
+    flex-wrap: wrap;
+}
