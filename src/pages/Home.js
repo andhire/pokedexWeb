@@ -46,7 +46,6 @@ class Home extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Navbara />
                 <PokemonList
                     state={this.state}
                     pokemonLenght={this.state.length}
