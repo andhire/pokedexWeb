@@ -14,14 +14,6 @@ function Navbara(props) {
                     Pokedex
                 </Navbar.Brand>
                 <Nav className="mr-auto" />
-                <Form inline>
-                    <FormControl
-                        type="text"
-                        placeholder="Search"
-                        className="mr-lg-2"
-                    />
-                    <Button variant="outline-light">Search</Button>
-                </Form>
             </Navbar>
         </React.Fragment>
     );

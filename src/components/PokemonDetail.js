@@ -10,7 +10,7 @@ class PokemonDetail extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {/* <CardColumns />
+                <CardColumns />
                 <div className="display">
                     {this.props.state.data.results.map((pokemon, index) => {
                         return (
@@ -25,15 +25,7 @@ class PokemonDetail extends React.Component {
                             </Card>
                         );
                     })}
-                </div> */}
-                <Spinner
-                    animation="border"
-                    role="status"
-                    variant="danger"
-                    className="spinner"
-                >
-                    <span className="sr-only">Loading...</span>
-                </Spinner>
+                </div>
             </React.Fragment>
         );
     }

@@ -1,8 +1,8 @@
 import React from "react";
 import PokemonList from "../components/PokemonList";
-import Navbara from "../components/Navbar";
-import { throwStatement } from "@babel/types";
+import { Form, Spinner, InputGroup, FormControl } from "react-bootstrap";
 
+import "./syles/home.css";
 class Home extends React.Component {
     state = {
         loading: true,
@@ -10,9 +10,9 @@ class Home extends React.Component {
         data: {
             results: []
         },
-        pokemonData: [],
-        length: 0
+        query: ""
     };
+
     componentDidMount() {
         this.fetchPokemons();
     }
@@ -21,7 +21,7 @@ class Home extends React.Component {
         this.setState({ loading: true, error: null });
         try {
             const response = await fetch(
-                "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=21"
+                "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=807"
             );
             const data = await response.json();
             this.setState({
@@ -29,29 +29,79 @@ class Home extends React.Component {
                 loading: false,
                 length: data.results.length
             });
-
-            for (let i = 0; i < this.state.data.results.length; i++) {
-                const pokemonResponse = await fetch(
-                    this.state.data.results[i].url
-                );
-                const pokemonData = await pokemonResponse.json();
-                this.setState({
-                    pokemonData: [...this.state.pokemonData, pokemonData]
-                });
-            }
         } catch (error) {
             this.setState({ error: error, loading: false });
         }
     };
+    getNumberUrl(url) {
+        var number = "";
+        for (let a = 0; a < 3; a++) {
+            if (url.charAt(34 + a) == "/") {
+                break;
+            }
+            number += url.charAt(34 + a);
+        }
+        return number;
+    }
     render() {
-        return (
-            <React.Fragment>
-                <PokemonList
-                    state={this.state}
-                    pokemonLenght={this.state.length}
-                />
-            </React.Fragment>
-        );
+        if (this.isReady()) {
+            return (
+                <React.Fragment>
+                    <InputGroup size="lg" className="search">
+                        <FormControl
+                            aria-label="Large"
+                            aria-describedby="inputGroup-sizing-sm"
+                            type="text"
+                            placeholder="Search Pokemon..."
+                            size="lg"
+                            value={this.state.query}
+                            onChange={e => {
+                                this.setState({ query: e.target.value });
+                            }}
+                        />
+                    </InputGroup>
+
+                    <PokemonList
+                        state={this.state}
+                        pokemonLenght={this.state.length}
+                    />
+                </React.Fragment>
+            );
+        } else {
+            return (
+                <div>
+                    <InputGroup size="lg" className="search">
+                        <FormControl
+                            aria-label="Large"
+                            aria-describedby="inputGroup-sizing-sm"
+                            type="text"
+                            placeholder="Search Pokemon..."
+                            size="lg"
+                            value={this.state.query}
+                            onChange={e => {
+                                this.setState({ query: e.target.value });
+                            }}
+                        />
+                    </InputGroup>
+                    <Spinner
+                        animation="border"
+                        role="status"
+                        variant="danger"
+                        className="spinner"
+                    >
+                        <span className="sr-only">Loading...</span>
+                    </Spinner>
+                </div>
+            );
+        }
+    }
+
+    isReady() {
+        if (this.state.data) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
