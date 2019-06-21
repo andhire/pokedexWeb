@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Button, Form, FormControl } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 function Navbara(props) {
     return (
         <React.Fragment>
@@ -10,6 +10,7 @@ function Navbara(props) {
                         height="40"
                         width="40"
                         style={{ paddingBottom: 10 + "px" }}
+                        alt="Pikachu gif"
                     />
                     Pokedex
                 </Navbar.Brand>

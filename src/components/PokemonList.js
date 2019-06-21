@@ -1,53 +1,64 @@
 import React from "react";
-import { Card, Spinner } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./styles/card.css";
-import { throwStatement } from "@babel/types";
 
-class PokemonList extends React.Component {
-    capitalize(name) {
-        return name.charAt(0).toUpperCase() + name.slice(1);
+function capitalize(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+function getNumberUrl(url) {
+    var number = "";
+    for (let a = 0; a < 3; a++) {
+        if (url.charAt(34 + a) === "/") {
+            break;
+        }
+        number += url.charAt(34 + a);
     }
+    return number;
+}
 
-    render() {
-        const queryList = this.props.state.data.results.filter(data => {
-            return data.name.includes(this.props.state.query.toLowerCase());
+function PokemonList(props) {
+    const [queryList, setQueryList] = React.useState(props.state.data.results);
+    React.useMemo(() => {
+        const result = props.state.data.results.filter(data => {
+            return data.name.includes(props.state.query.toLowerCase());
         });
+        setQueryList(result);
+    }, [props.state.data.results, props.state.query]);
 
-        return (
-            <React.Fragment>
-                <div className="display">
-                    {queryList.map((pokemon, index) => {
-                        return (
-                            <Link
-                                to={(index + 1).toString()}
-                                className="text-reset text-decoration-none a"
-                                key={index}
-                            >
-                                <Card border="dark">
-                                    <Card.Body className="flex">
-                                        <img
-                                            height="60"
-                                            width="60"
-                                            src={
-                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
-                                                (index + 1) +
-                                                ".png"
-                                            }
-                                        />
+    return (
+        <React.Fragment>
+            <div className="display">
+                {queryList.map((pokemon, index) => {
+                    return (
+                        <Link
+                            to={(index + 1).toString()}
+                            className="text-reset text-decoration-none a"
+                            key={index}
+                        >
+                            <Card border="dark">
+                                <Card.Body className="flex">
+                                    <img
+                                        height="60"
+                                        width="60"
+                                        src={
+                                            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                                            getNumberUrl(pokemon.url) +
+                                            ".png"
+                                        }
+                                    />
 
-                                        <Card.Title className="Card-Title">
-                                            {this.capitalize(pokemon.name)}
-                                        </Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Link>
-                        );
-                    })}
-                </div>
-            </React.Fragment>
-        );
-    }
+                                    <Card.Title className="Card-Title">
+                                        {capitalize(pokemon.name)}
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </Link>
+                    );
+                })}
+            </div>
+        </React.Fragment>
+    );
 }
 
 export default PokemonList;

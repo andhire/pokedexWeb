@@ -1,6 +1,6 @@
 import React from "react";
 import PokemonList from "../components/PokemonList";
-import { Form, Spinner, InputGroup, FormControl } from "react-bootstrap";
+import { Spinner, InputGroup, FormControl } from "react-bootstrap";
 
 import "./syles/home.css";
 class Home extends React.Component {
@@ -33,16 +33,7 @@ class Home extends React.Component {
             this.setState({ error: error, loading: false });
         }
     };
-    getNumberUrl(url) {
-        var number = "";
-        for (let a = 0; a < 3; a++) {
-            if (url.charAt(34 + a) == "/") {
-                break;
-            }
-            number += url.charAt(34 + a);
-        }
-        return number;
-    }
+
     render() {
         if (this.isReady()) {
             return (
@@ -97,7 +88,7 @@ class Home extends React.Component {
     }
 
     isReady() {
-        if (this.state.data) {
+        if (!this.state.loading) {
             return true;
         } else {
             return false;
