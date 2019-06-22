@@ -41,6 +41,7 @@ function PokemonList(props) {
                                     <img
                                         height="60"
                                         width="60"
+                                        alt="Pokemon "
                                         src={
                                             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
                                             getNumberUrl(pokemon.url) +
