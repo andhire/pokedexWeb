@@ -30,27 +30,3 @@ ul {
     top: 50%;
     left: 50%;
 }
-
-.not-active {
-    cursor: pointer;
-    color: #d6d6d6;
-    text-decoration: none;
-    margin-right: 5px;
-    margin-left: 5px;
-
-}
-
-.not-active-Pokedex {
-    cursor: pointer;
-    color: #ffffff;
-    text-decoration: none;
-    margin-right: 5px;
-    margin-left: 5px;
-    font-size: 20px;
-
-}
-
-a:hover {
-    color: #ffffff;
-    text-decoration-line: none;
-}
