@@ -32,7 +32,7 @@ function PokemonList(props) {
                 {queryList.map((pokemon, index) => {
                     return (
                         <Link
-                            to={(index + 1).toString()}
+                            to={"/" + getNumberUrl(pokemon.url).toString()}
                             className="text-reset text-decoration-none a"
                             key={index}
                         >

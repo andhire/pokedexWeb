@@ -3,3 +3,18 @@
     margin-left: 5%;
     margin-top: 20px
 }
+
+.margin {
+    margin-top: 10px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+
+
+
+.center {
+
+    text-align: center;
+    margin-top: 10px;
+}

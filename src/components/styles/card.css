@@ -30,3 +30,11 @@ ul {
     top: 50%;
     left: 50%;
 }
+
+.margin {
+    margin: 10px;
+}
+
+.center {
+    text-align: center;
+}
