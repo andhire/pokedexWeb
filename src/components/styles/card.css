@@ -1,9 +1,9 @@
 .a {
     padding: 10px;
     margin: 1%;
-    margin-left: 1.5%;
-
-    width: 430px;
+    margin-left: 4%;
+    margin-right: 4%;
+    width: 360px;
 }
 
 
@@ -37,4 +37,94 @@ ul {
 
 .center {
     text-align: center;
+}
+
+.grass {
+    background-color: green;
+    color: white;
+}
+
+.poison {
+    background-color: purple;
+    color: white;
+}
+
+.normal {
+    background-color: gray;
+    color: white;
+}
+
+.fire {
+    background-color: #fd7d24;
+    color: white;
+}
+
+.water {
+    background-color: rgb(0, 162, 255);
+    color: white;
+}
+
+.flying {
+    background-color: rgb(167, 223, 255);
+    color: white;
+}
+
+.electric {
+    background-color: yellow;
+    color: white;
+}
+
+.ice {
+    background-color: rgb(6, 238, 255);
+    color: white;
+}
+
+.fighting {
+    background-color: red;
+    color: white;
+}
+
+.ground {
+    background-color: brown;
+    color: white;
+}
+
+.psychic {
+    background-color: palevioletred;
+    color: white;
+}
+
+.bug {
+    background-color: rgb(138, 255, 148);
+    color: white;
+}
+
+.rock {
+    background-color: rgb(102, 73, 50);
+    color: white;
+}
+
+.ghost {
+    background-color: rgb(26, 15, 29);
+    color: white;
+}
+
+.dark {
+    background-color: rgb(32, 32, 32);
+    color: white;
+}
+
+.dragon {
+    background-color: rgb(85, 0, 196);
+    color: white;
+}
+
+.steel {
+    background-color: rgb(185, 185, 185);
+    color: white;
+}
+
+.fairy {
+    background-color: rgb(255, 144, 231);
+    color: white;
 }

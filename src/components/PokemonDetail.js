@@ -1,52 +1,87 @@
 import React from "react";
-import { Card, CardGroup, Badge, Row, Col } from "react-bootstrap";
+import { Card, Badge, Row, Col, CardColumns, CardGroup } from "react-bootstrap";
 import "./styles/card.css";
 class PokemonDetail extends React.Component {
     capitalize(name) {
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
 
+    height(h) {
+        var altura = h.toString();
+        altura =
+            altura.slice(0, altura.length - 1) +
+            "." +
+            altura[altura.length - 1];
+
+        return altura;
+    }
+
     render() {
+        const pokemon = this.props.pokemon;
+        const specie = this.props.specie;
+        const evolutions = this.props.evolutions;
+        var habitat = "";
+        try {
+            habitat = specie.habitat.name;
+        } catch (e) {
+            habitat = "Unknown";
+        }
         return (
             <React.Fragment>
                 <div className="margin">
                     <Row>
                         <Col className="center">
                             <img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
+                                src={
+                                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                                    this.props.id +
+                                    ".png"
+                                }
                                 width="200"
                                 height="200"
+                                alt="pokemon"
                             />
-                            <h2>Charmander</h2>
-                            <p>Charmander el pokemon flama</p>
+                            <h2>{this.capitalize(pokemon.species.name)}</h2>
+                            <p>{specie.genera[2].genus}</p>
                         </Col>
                     </Row>
                 </div>
                 <Row className="margin">
                     <Col>
                         <p>
-                            <b>Height: </b>4m
+                            <b>Height: </b>
+                            {this.height(pokemon.height)} m
                         </p>
                     </Col>
 
                     <Col>
                         <p>
-                            <b>Weight:</b> 65kg
+                            <b>Weight:</b> {this.height(pokemon.weight)} kg
                         </p>
                     </Col>
 
                     <Col>
                         <p>
-                            <b>Type:</b>
-                            <Badge pill variant="danger">
-                                Fire
-                            </Badge>
+                            <b>Type: </b>
+
+                            {pokemon.types.map(type => {
+                                return (
+                                    <Badge
+                                        pill
+                                        className={type.type.name}
+                                        key={type.type.name}
+                                    >
+                                        {type.type.name}
+                                    </Badge>
+                                );
+                            })}
                         </p>
                     </Col>
 
                     <Col>
                         <p>
-                            <b>Habitat:</b> Mountains
+                            <b>Habitat:</b>
+                            {this.capitalize(habitat)}
                         </p>
                     </Col>
                 </Row>
@@ -58,25 +93,40 @@ class PokemonDetail extends React.Component {
                         </Col>
                     </Row>
                     <Row className="margin">
-                        <p>Base Experience: 100</p>
+                        <p>
+                            <b>Base Experience: </b>
+                            {pokemon.base_experience}
+                        </p>
                     </Row>
                     <Row className="margin">
-                        <p>Hp: 100ps</p>
+                        <p>
+                            <b>Hp:</b> {pokemon.stats[5].base_stat}
+                        </p>
                     </Row>
                     <Row className="margin">
-                        <p>Attack: 50</p>
+                        <p>
+                            <b>Attack:</b> {pokemon.stats[4].base_stat}
+                        </p>
                     </Row>
                     <Row className="margin">
-                        <p>Speed: 14</p>
+                        <p>
+                            <b>Speed:</b> {pokemon.stats[0].base_stat}
+                        </p>
                     </Row>
                     <Row className="margin">
-                        <p>Defense: 100</p>
+                        <p>
+                            <b>Defense:</b> {pokemon.stats[3].base_stat}
+                        </p>
                     </Row>
                     <Row className="margin">
-                        <p>Special Attack: 15</p>
+                        <p>
+                            <b>Special Attack:</b> {pokemon.stats[2].base_stat}
+                        </p>
                     </Row>
                     <Row className="margin">
-                        <p>Special Defense: 50</p>
+                        <p>
+                            <b>Special Defense:</b> {pokemon.stats[1].base_stat}
+                        </p>
                     </Row>
                 </div>
 
@@ -85,8 +135,19 @@ class PokemonDetail extends React.Component {
                         <h3 className="center"> VideoGames</h3>
                     </Col>
                 </Row>
-                <p>Black</p>
-                <p>Fire</p>
+                <div>
+                    <CardColumns>
+                        {pokemon.game_indices.map(game => {
+                            return (
+                                <Card border="danger" key={game.version.name}>
+                                    <Card.Text className="center">
+                                        {this.capitalize(game.version.name)}
+                                    </Card.Text>
+                                </Card>
+                            );
+                        })}
+                    </CardColumns>
+                </div>
 
                 <Row>
                     <Col>
@@ -94,34 +155,41 @@ class PokemonDetail extends React.Component {
                     </Col>
                 </Row>
 
-                <Row>
+                <CardGroup className="center">
                     <Card>
-                        <img
-                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-                            width="200"
-                            height="200"
-                        />
+                        <Col className="center">
+                            <img
+                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
+                                width="200"
+                                height="200"
+                            />
+                        </Col>
+
+                        <Card.Title>{evolutions.chain}</Card.Title>
+                    </Card>
+                    ->
+                    <Card>
+                        <Col className="center">
+                            <img
+                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png"
+                                width="200"
+                                height="200"
+                            />
+                        </Col>
                         <Card.Title>Charmander</Card.Title>
                     </Card>
                     ->
                     <Card>
-                        <img
-                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png"
-                            width="200"
-                            height="200"
-                        />
+                        <Col className="center">
+                            <img
+                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+                                width="200"
+                                height="200"
+                            />
+                        </Col>
                         <Card.Title>Charmander</Card.Title>
                     </Card>
-                    ->
-                    <Card>
-                        <img
-                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
-                            width="200"
-                            height="200"
-                        />
-                        <Card.Title>Charmander</Card.Title>
-                    </Card>
-                </Row>
+                </CardGroup>
             </React.Fragment>
         );
     }
