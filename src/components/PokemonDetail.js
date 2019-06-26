@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Badge, Row, Col, CardColumns, CardGroup } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./styles/card.css";
 class PokemonDetail extends React.Component {
     capitalize(name) {
@@ -44,6 +45,7 @@ class PokemonDetail extends React.Component {
         }
         return number;
     }
+
     render() {
         const pokemon = this.props.pokemon;
         const specie = this.props.specie;
@@ -187,24 +189,31 @@ class PokemonDetail extends React.Component {
                 <CardGroup className="center">
                     {evoJson.pokemons.map((pokemon, index) => {
                         return (
-                            <Card key="index">
-                                <Col className="center">
-                                    <img
-                                        src={
-                                            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
-                                            evoJson.id[index] +
-                                            ".png"
-                                        }
-                                        width="200"
-                                        height="200"
-                                        alt="Pokemon Evolucion"
-                                    />
-                                </Col>
+                            <Link
+                                to={"/" + evoJson.id[index].toString()}
+                                className="text-reset text-decoration-none a"
+                                key={index}
+                                onClick={window.scrollTo(0, 0)}
+                            >
+                                <Card>
+                                    <Col className="center">
+                                        <img
+                                            src={
+                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                                                evoJson.id[index] +
+                                                ".png"
+                                            }
+                                            width="200"
+                                            height="200"
+                                            alt="Pokemon Evolucion"
+                                        />
+                                    </Col>
 
-                                <Card.Title>
-                                    {this.capitalize(pokemon)}
-                                </Card.Title>
-                            </Card>
+                                    <Card.Title>
+                                        {this.capitalize(pokemon)}
+                                    </Card.Title>
+                                </Card>
+                            </Link>
                         );
                     })}
                 </CardGroup>
