@@ -12,7 +12,7 @@ import Sinnoh from "../pages/Sinnoh";
 import Teselia from "../pages/Teselia";
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Navbara />
             <Switch>
                 <Route exact path="/" component={Home} />

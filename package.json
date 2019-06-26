@@ -1,7 +1,7 @@
 {
   "name": "pokedexreact",
   "version": "0.1.0",
-  "homepage": "https://andhire.github.io/pokedexWeb",
+  "homepage": "https://andhire.github.io/pokedexWeb/",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
