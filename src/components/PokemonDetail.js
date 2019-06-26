@@ -15,11 +15,40 @@ class PokemonDetail extends React.Component {
 
         return altura;
     }
+    chainEvolution(evolutions) {
+        console.log(evolutions);
+        var evo = evolutions.chain;
+        var json = {
+            pokemons: [],
+            id: []
+        };
 
+        while (evo.evolves_to.length > 0) {
+            json.pokemons.push(evo.species.name);
+            json.id.push(this.getNumberUrl(evo.species.url));
+            evo = evo.evolves_to[0];
+        }
+        json.pokemons.push(evo.species.name);
+        json.id.push(this.getNumberUrl(evo.species.url));
+        console.log("Pokemons:" + json.pokemons + "  id" + json.id);
+        return json;
+    }
+
+    getNumberUrl(url) {
+        var number = "";
+        for (let a = 0; a < 3; a++) {
+            if (url.charAt(42 + a) === "/") {
+                break;
+            }
+            number += url.charAt(42 + a);
+        }
+        return number;
+    }
     render() {
         const pokemon = this.props.pokemon;
         const specie = this.props.specie;
-        const evolutions = this.props.evolutions;
+        const evolution = this.props.evolution;
+        const evoJson = this.chainEvolution(evolution);
         var habitat = "";
         try {
             habitat = specie.habitat.name;
@@ -80,7 +109,7 @@ class PokemonDetail extends React.Component {
 
                     <Col>
                         <p>
-                            <b>Habitat:</b>
+                            <b>Habitat: </b>
                             {this.capitalize(habitat)}
                         </p>
                     </Col>
@@ -156,39 +185,28 @@ class PokemonDetail extends React.Component {
                 </Row>
 
                 <CardGroup className="center">
-                    <Card>
-                        <Col className="center">
-                            <img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-                                width="200"
-                                height="200"
-                            />
-                        </Col>
+                    {evoJson.pokemons.map((pokemon, index) => {
+                        return (
+                            <Card key="index">
+                                <Col className="center">
+                                    <img
+                                        src={
+                                            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                                            evoJson.id[index] +
+                                            ".png"
+                                        }
+                                        width="200"
+                                        height="200"
+                                        alt="Pokemon Evolucion"
+                                    />
+                                </Col>
 
-                        <Card.Title>{evolutions.chain}</Card.Title>
-                    </Card>
-                    ->
-                    <Card>
-                        <Col className="center">
-                            <img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png"
-                                width="200"
-                                height="200"
-                            />
-                        </Col>
-                        <Card.Title>Charmander</Card.Title>
-                    </Card>
-                    ->
-                    <Card>
-                        <Col className="center">
-                            <img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
-                                width="200"
-                                height="200"
-                            />
-                        </Col>
-                        <Card.Title>Charmander</Card.Title>
-                    </Card>
+                                <Card.Title>
+                                    {this.capitalize(pokemon)}
+                                </Card.Title>
+                            </Card>
+                        );
+                    })}
                 </CardGroup>
             </React.Fragment>
         );

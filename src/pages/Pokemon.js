@@ -9,7 +9,7 @@ class Pokemon extends React.Component {
         error: null,
         data: {},
         specie: {},
-        evolution: {}
+        evolution: null
     };
 
     componentDidMount() {
@@ -24,14 +24,20 @@ class Pokemon extends React.Component {
                     this.props.match.params.pokemonId
             );
             const data = await response.json();
-            console.log(data);
+
             this.setState({
                 data: data
             });
             const responseSpecie = await fetch(this.state.data.species.url);
             const dataSpecie = await responseSpecie.json();
 
-            this.setState({ loading: false, specie: dataSpecie });
+            this.setState({ specie: dataSpecie });
+
+            const responseEvolution = await fetch(
+                this.state.specie.evolution_chain.url
+            );
+            const dataEvolution = await responseEvolution.json();
+            this.setState({ evolution: dataEvolution, loading: false });
         } catch (error) {
             this.setState({ error: error, loading: false });
         }
@@ -44,7 +50,7 @@ class Pokemon extends React.Component {
                         pokemon={this.state.data}
                         specie={this.state.specie}
                         id={this.props.match.params.pokemonId}
-                        evolutions={this.state.evolution}
+                        evolution={this.state.evolution}
                     />
                 </React.Fragment>
             );
@@ -68,19 +74,11 @@ class Pokemon extends React.Component {
 
     isReady() {
         if (!this.state.loading) {
-            this.retrieveEvolution();
             return true;
         } else {
             return false;
         }
     }
-    retrieveEvolution = async () => {
-        const responseEvolution = await fetch(
-            this.state.specie.evolution_chain.url
-        );
-        const dataEvolution = await responseEvolution.json();
-        console.log(dataEvolution);
-    };
 }
 
 export default Pokemon;
