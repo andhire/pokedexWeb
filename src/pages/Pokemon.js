@@ -9,10 +9,12 @@ class Pokemon extends React.Component {
         error: null,
         data: {},
         specie: {},
-        evolution: null
+        evolution: null,
+        lastUrl: null
     };
 
     componentDidMount() {
+        this.setState({ lastUrl: this.props.match.params.pokemonId });
         this.fetchPokemon();
     }
 
@@ -74,6 +76,12 @@ class Pokemon extends React.Component {
 
     isReady() {
         if (!this.state.loading) {
+            if (this.state.lastUrl == null) {
+            } else if (
+                this.state.lastUrl != this.props.match.params.pokemonId
+            ) {
+                window.location.reload();
+            }
             return true;
         } else {
             return false;

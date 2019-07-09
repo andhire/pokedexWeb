@@ -193,7 +193,6 @@ class PokemonDetail extends React.Component {
                                 to={"/" + evoJson.id[index].toString()}
                                 className="text-reset text-decoration-none a"
                                 key={index}
-                                onClick={window.scrollTo(0, 0)}
                             >
                                 <Card>
                                     <Col className="center">
