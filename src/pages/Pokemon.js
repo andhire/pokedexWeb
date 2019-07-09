@@ -75,12 +75,12 @@ class Pokemon extends React.Component {
     }
 
     isReady() {
+        console.log(this.state.lastUrl);
         if (!this.state.loading) {
             if (this.state.lastUrl == null) {
             } else if (
                 this.state.lastUrl !== this.props.match.params.pokemonId
             ) {
-                console.log(this.state.lastUrl);
                 window.location.reload();
             }
             return true;
